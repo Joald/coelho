@@ -1,6 +1,6 @@
 mod image;
 
-use crate::image::create_fake_quote;
+use crate::image::{create_fake_quote, CoelhoError};
 use chrono::prelude::*;
 use clap::{App, Arg};
 use std::io::{self, Read};
@@ -73,5 +73,12 @@ fn main() -> io::Result<()> {
     }
     println!("{}", quote);
     println!("{}", output_file.to_str().unwrap());
-    create_fake_quote(quote, output_file)
+    for error in create_fake_quote(quote, output_file).err().iter() {
+        match error {
+            CoelhoError::CairoError(e) => println!("Cairo error: {}", e),
+            CoelhoError::CairoIoError(e) => println!("Cairo I/O error: {}", e),
+            CoelhoError::IoError(e) => println!("I/O error: {}", e),
+        }
+    }
+    Ok(())
 }
