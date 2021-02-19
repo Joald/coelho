@@ -1,5 +1,4 @@
 *.xcf
-*.png
 target/
 debug/
 

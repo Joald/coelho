@@ -4,7 +4,7 @@ use std::io;
 use std::path::PathBuf;
 
 pub enum CoelhoError {
-  // CairoError(cairo::Error),
+  CairoError(cairo::Error),
   CairoIoError(cairo::IoError),
   IoError(io::Error),
 }
